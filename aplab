@@ -1,0 +1,33 @@
+import os
+fileindex = dict()
+
+
+def indexer():#this function creates the index for the crawler
+  for root, dirs, files in os.walk("E:/"):  # the os.walk action will traverse the complete directory for us
+    for file in files:
+        if file.endswith(".txt"):
+            filedir = os.path.join(root, file)
+            fp=open(filedir,'r')
+            for line in fp:
+                for word in line.split():#get each word from the files
+                 for root, dirs, files in os.walk("E:/"):
+                    for file in files:
+                        if file.endswith(".txt"):
+                         filedir=os.path.join(root, file)
+                         fpp=open(filedir,'r')
+                         if word in fpp.read():
+                            if word in fileindex:#adding index to the map
+                                # append the new number to the existing array at this slot
+                                fileindex[word].append(filedir)
+                            else:
+                                # create a new array in this slot
+                                fileindex[word] = [filedir]
+
+
+def searcher():
+    myword=raw_input("enter the word")
+    print fileindex[myword]
+
+
+indexer()
+searcher()
